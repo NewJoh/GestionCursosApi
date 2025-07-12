@@ -1,15 +1,23 @@
-using GestionCursosApi.Data;
+﻿using GestionCursosApi.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// CONFIGURACI�N PARA SQL Server
+// ✅ CONFIGURACIÓN PARA SQL SERVER (No MySQL)
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-	options.UseSqlServer(connectionString));  // Cambiado de UseMySql a UseSqlServer
+	options.UseSqlServer(connectionString));
 
-builder.Services.AddControllers();
+// ✅ Para evitar ciclos al serializar Docente → Cursos → Docente...
+builder.Services.AddControllers()
+	.AddJsonOptions(options =>
+	{
+		options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+		options.JsonSerializerOptions.WriteIndented = true;
+	});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

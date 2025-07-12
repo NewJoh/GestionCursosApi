@@ -9,6 +9,7 @@
 		public DateTime FechaNacimiento { get; set; }
 		public string Correo { get; set; }
 
-		public ICollection<Curso> Cursos { get; set; }
+		// Solución: inicializamos con una lista vacía
+		public ICollection<Curso> Cursos { get; set; } = new List<Curso>();
 	}
 }

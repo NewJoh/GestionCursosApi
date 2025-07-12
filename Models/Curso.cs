@@ -8,7 +8,10 @@
 		public int HorasSemanal { get; set; }
 		public int Ciclo { get; set; }
 
-		public int IdDocente { get; set; }
-		public Docente Docente { get; set; }
+		public int DocenteId { get; set; }
+
+
+		// ✅ Esto debe ser opcional
+		public Docente? Docente { get; set; }
 	}
 }
