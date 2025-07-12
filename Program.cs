@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// CONFIGURACIÓN PARA MySQL
+// CONFIGURACIÓN PARA SQL Server
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-	options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+	options.UseSqlServer(connectionString));  // Cambiado de UseMySql a UseSqlServer
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
